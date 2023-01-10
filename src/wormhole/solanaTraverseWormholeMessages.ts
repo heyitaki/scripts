@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { CONTRACTS } from '@certusone/wormhole-sdk/lib/cjs/utils/consts';
 import {
   CompiledInstruction,
@@ -13,7 +16,7 @@ const GET_SIGNATURES_LIMIT = 1000;
 const WORMHOLE_PROGRAM_ID = CONTRACTS.MAINNET.solana.core;
 
 // (async () => {
-//   const connection = new Connection('https://api.mainnet-beta.solana.com', 'finalized');
+//   const connection = new Connection(process.env.SOLANA_RPC || 'https://api.mainnet-beta.solana.com', 'finalized');
 //   const latestSlot = await connection.getSlot();
 //   await solanaTraverseWormholeMessages(connection, 96383501, latestSlot);
 // })();
@@ -119,9 +122,3 @@ export const normalizeCompileInstruction = (
     return instruction;
   }
 };
-
-(async () => {
-  const connection = new Connection('https://api.mainnet-beta.solana.com', 'finalized');
-  const latestSlot = await connection.getSlot();
-  await solanaTraverseWormholeMessages(connection, 96383501, latestSlot);
-})();
